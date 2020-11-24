@@ -12,3 +12,97 @@ html {
     font-weight: 300;
     text-rendering: optimizeLegibility;
 }
+
+.row {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+/* .make-border {
+    border: dashed thick blue;
+} */
+
+header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hero.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.hero-text-box {
+    position: absolute;
+    width: 1140px;
+    top: 50%;
+    left: 50%;
+    /*makes the picture in center*/
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    margin: 0;
+    color: #fff;
+    /*it is 40px, based on the html font-size defined in line 11. It will be
+    more flexiable*/
+    font-size: 240%;
+    /* why set again? because browser overwritten as it is tag <h*/
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+}
+
+/*
+inline element, block element, 
+inline block just like inline element, but it can have padding and margin.
+*/
+/* put common in .btn and put individual styles .btn-full and .btn-ghost */
+
+/* buttons, links in general in CSS have states.
+ link(normal state)/visited/active/hover. We want to make to normal state regardingless visited or not.
+ active means clicking button while hover means mouse moving on it */
+.btn:link,.btn:visited {
+    /*display makes as a inline block*/
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    /* if the following color changes, delay 0.2s. not related to event, just define what happens when event happens */
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+
+
+/*color picker: flatuicolors.com*/
+.btn-full:link, .btn-full:visited {
+    background-color: #f0932b;
+    border: 1px solid #f0932b;
+    color: white;
+    /* make buttons space between */
+    margin-right: 15px;
+}
+
+/*element's size = padding + border*/
+.btn-ghost:link, .btn-full:visited {
+    border: 1px solid #f0932b;
+    color: #f0932b
+}
+
+/* get a darker color or lighter color based on your color? --> 0to255.com */
+.btn:hover,
+.btn:active{
+    /*this will overwritten in .btn-full*/
+    background-color: #e98310;
+}
+
+/* make the border color when hover/active */
+/* about the overwritten: the last one will take priority. For example, when hover/active, background-color will has different values, put the one you want take priority in the last of the */
+.btn-full:hover, .btn-full:active {
+    border: #e98310;
+}
+.btn-ghost:hover, .btn-full:active {
+    border: #e98310;
+    color: white;
+}

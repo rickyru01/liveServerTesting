@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" id="sap-ui-bootstrap"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
+    <meta charset="utf-8">
+    <title>JS Bin</title>
+</head>
+<script>
+    (function ($) {
+        //jQuery domready
+        $(function () {
+
+            // use of jQUery
+            $("body").addClass("sapUiBody");
+
+            var oButton = new sap.m.Button({
+                text: "hi jQUery"
+            });
+            oButton.addEventDelegate({
+                onAfterRendering: function () {
+                    oButton.$().animate({
+                        rotation: 360
+                    }, {
+                        duration: 10000,
+                        step: function (now) {
+                            $(this).css({
+                                "transform": "rotate(" + now + "deg)"
+                            });
+                        }
+                    });
+                }
+            });
+            oButton.placeAt("content");
+
+        });
+    })(jQuery);
+</script>
+
+<body id="content">
+
+</body>
+
+</html>

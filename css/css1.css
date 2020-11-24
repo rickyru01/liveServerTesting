@@ -1,0 +1,58 @@
+/*
+, means OR
+. (no space) means AND
+space means all childrens.
+> direct childrens.
+...
+*/
+
+*{
+
+}
+
+.test01, .test02 {
+    border: 1px solid blue;
+    background: yellow;
+}
+
+
+.test03.test04 {
+    border: 1px solid blue;
+    background: yellow;
+}
+
+.test05 .test06 {
+    border: 1px solid blue;
+    background: yellow;
+}
+
+.test07>.test08 {
+    border: 1px solid blue;
+    background: yellow;
+}
+
+
+.test09 .test10>.test11:nth-of-type(1) {
+    border: 1px solid blue;
+    background: yellow;
+}
+
+
+* {
+    box-sizing: border-box;
+  }
+  
+  .box {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: red;
+    color: white;
+  }
+  
+  #two {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: blue;
+  }

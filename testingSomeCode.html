@@ -1,0 +1,59 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>children demo</title>
+  <style>
+    body {
+      font-size: 16px;
+      font-weight: bolder;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <script>
+    //promise testing start
+    let prom = new Promise((res, rej) => {
+      console.log('synchronously executed');
+      if (Math.random() > 0.5) {
+        res('Success');
+      } else {
+        rej('Error');
+      }
+    })
+
+
+    prom.then((val) => {
+      console.log('asynchronously executed: ' + val);
+    }).catch((err) => {
+      console.log('asynchronously executed: ' + err);
+    }).finally(() => {
+      console.log('promise done executing');
+    });
+
+    console.log('last log');
+    //promise testing end
+  </script>
+</head>
+
+<body>
+
+  <div>
+    <span>Hello</span>
+    <p class="selected">Hello Again ::before</p>
+    <div class="selected">And Again</div>
+    <p>And One Last Time</p>
+  </div>
+
+  <script>
+    $("div").children(".selected").css("color", "blue");
+  </script>
+
+</body>
+
+
+
+</html>

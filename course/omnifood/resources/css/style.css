@@ -1,3 +1,6 @@
+/* ----------------------------------------------------- */
+/* basic */
+/* ----------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -12,44 +15,19 @@ html {
     font-weight: 300;
     text-rendering: optimizeLegibility;
 }
+/* ----------------------------------------------------- */
+/* resuable component */
+/* ----------------------------------------------------- */
 
 .row {
     max-width: 1140px;
     margin: 0 auto;
 }
 
-/* .make-border {
+div {
     border: dashed thick blue;
-} */
-
-header {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hero.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
 }
 
-.hero-text-box {
-    position: absolute;
-    width: 1140px;
-    top: 50%;
-    left: 50%;
-    /*makes the picture in center*/
-    transform: translate(-50%, -50%);
-}
-
-h1 {
-    margin: 0;
-    color: #fff;
-    /*it is 40px, based on the html font-size defined in line 11. It will be
-    more flexiable*/
-    font-size: 240%;
-    /* why set again? because browser overwritten as it is tag <h*/
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    word-spacing: 3px;
-}
 
 /*
 inline element, block element, 
@@ -105,4 +83,72 @@ inline block just like inline element, but it can have padding and margin.
 .btn-ghost:hover, .btn-full:active {
     border: #e98310;
     color: white;
+}
+
+/* ----------------------------------------------------- */
+/* HEADER */
+/* ----------------------------------------------------- */
+
+header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hero.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.hero-text-box {
+    position: absolute;
+    width: 1140px;
+    top: 50%;
+    left: 50%;
+    /*makes the picture in center*/
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    margin: 0;
+    color: #fff;
+    /*it is 40px, based on the html font-size defined in line 11. It will be
+    more flexiable*/
+    font-size: 240%;
+    /* why set again? because browser overwritten as it is tag <h*/
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+}
+
+.logo{
+    margin-top: 20px;
+    height: 100px;
+    width: auto;
+    float: left;
+}
+
+.main-nav{
+    margin-top: 55px;
+    float: right;
+    /* remove the points/dots in font of each list element. means list element is block element, we will make them inline block to  put them in a single line */
+    list-style: none;
+}
+.main-nav li {
+    display: inline-block;/*all list elements are in single line*/
+    margin-left: 40px;
+}
+
+.main-nav li a:link,
+.main-nav li a:visited{
+    /* padding to add space top/bottom between the text and the border-bottom. the text is element in the <a> while the border-bottom is part of the <a>, the border; */
+    padding: 8px 0px; 
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 85%;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s;
+}
+
+.main-nav li a:hover,
+.main-nav li a:active{
+    border-bottom: 2px solid #e67e22;
 }

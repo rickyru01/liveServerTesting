@@ -151,6 +151,15 @@ h2:after {
     margin-top: 30px;
 }
 
+/*-----PARAGRAPHS-----*/
+.long-copy {
+    line-height: 145%;
+    /*make the <p> take the 70%*/
+    width: 70%;
+    /*using follow to make the <p> centered*/
+    margin-left: 15%;
+}
+
 .logo {
     margin-top: 20px;
     height: 100px;

@@ -138,8 +138,18 @@ h2 {
     text-align: center;
     margin-bottom: 30px;
 }
-
-
+/*presto, check source code , select it from source code and see the box , what it looks like
+looks the h2:after is part of h2.
+*/
+h2:after {
+    display: block;/*make it as a block*/
+    height: 2px;
+    background-color: #e67e22;
+    content: " ";
+    width: 100px;
+    margin: 0 auto;/*make the line centered*/
+    margin-top: 30px;
+}
 
 .logo {
     margin-top: 20px;

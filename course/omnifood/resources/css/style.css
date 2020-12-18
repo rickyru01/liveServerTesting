@@ -15,8 +15,9 @@ html {
     font-weight: 300;
     text-rendering: optimizeLegibility;
 }
+
 /* ----------------------------------------------------- */
-/* resuable component */
+/* RESUABLE COMPONENTS  */
 /* ----------------------------------------------------- */
 
 .row {
@@ -28,6 +29,10 @@ div {
     border: dashed thick blue;
 }
 
+/* using padding instead of margin, thinking if you want to add background image for the box? */
+section {
+    padding: 80px 0;
+}
 
 /*
 inline element, block element, 
@@ -38,7 +43,8 @@ inline block just like inline element, but it can have padding and margin.
 /* buttons, links in general in CSS have states.
  link(normal state)/visited/active/hover. We want to make to normal state regardingless visited or not.
  active means clicking button while hover means mouse moving on it */
-.btn:link,.btn:visited {
+.btn:link,
+.btn:visited {
     /*display makes as a inline block*/
     display: inline-block;
     margin-top: 20px;
@@ -51,10 +57,9 @@ inline block just like inline element, but it can have padding and margin.
     transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
-
-
 /*color picker: flatuicolors.com*/
-.btn-full:link, .btn-full:visited {
+.btn-full:link,
+.btn-full:visited {
     background-color: #f0932b;
     border: 1px solid #f0932b;
     color: white;
@@ -63,24 +68,28 @@ inline block just like inline element, but it can have padding and margin.
 }
 
 /*element's size = padding + border*/
-.btn-ghost:link, .btn-full:visited {
+.btn-ghost:link,
+.btn-full:visited {
     border: 1px solid #f0932b;
     color: #f0932b
 }
 
 /* get a darker color or lighter color based on your color? --> 0to255.com */
 .btn:hover,
-.btn:active{
+.btn:active {
     /*this will overwritten in .btn-full*/
     background-color: #e98310;
 }
 
 /* make the border color when hover/active */
 /* about the overwritten: the last one will take priority. For example, when hover/active, background-color will has different values, put the one you want take priority in the last of the */
-.btn-full:hover, .btn-full:active {
+.btn-full:hover,
+.btn-full:active {
     border: #e98310;
 }
-.btn-ghost:hover, .btn-full:active {
+
+.btn-ghost:hover,
+.btn-full:active {
     border: #e98310;
     color: white;
 }
@@ -105,41 +114,57 @@ header {
     transform: translate(-50%, -50%);
 }
 
-h1 {
-    margin: 0;
-    color: #fff;
-    /*it is 40px, based on the html font-size defined in line 11. It will be
-    more flexiable*/
-    font-size: 240%;
+h1,
+h2 {
     /* why set again? because browser overwritten as it is tag <h*/
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 1px;
-    word-spacing: 3px;
 }
 
-.logo{
+h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #fff;
+    /*it is 40px, based on the html font-size defined in line 11. It will be
+    more flexiable*/
+    font-size: 240%;
+    word-spacing: 4px;
+}
+
+h2 {
+    font-size: 180%;
+    word-spacing: 2px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+.logo {
     margin-top: 20px;
     height: 100px;
     width: auto;
     float: left;
 }
 
-.main-nav{
+.main-nav {
     margin-top: 55px;
     float: right;
     /* remove the points/dots in font of each list element. means list element is block element, we will make them inline block to  put them in a single line */
     list-style: none;
 }
+
 .main-nav li {
-    display: inline-block;/*all list elements are in single line*/
+    display: inline-block;
+    /*all list elements are in single line*/
     margin-left: 40px;
 }
 
 .main-nav li a:link,
-.main-nav li a:visited{
+.main-nav li a:visited {
     /* padding to add space top/bottom between the text and the border-bottom. the text is element in the <a> while the border-bottom is part of the <a>, the border; */
-    padding: 8px 0px; 
+    padding: 8px 0px;
     color: white;
     text-decoration: none;
     text-transform: uppercase;
@@ -149,7 +174,7 @@ h1 {
 }
 
 .main-nav li a:hover,
-.main-nav li a:active{
+.main-nav li a:active {
     border-bottom: 2px solid #e67e22;
 }
 

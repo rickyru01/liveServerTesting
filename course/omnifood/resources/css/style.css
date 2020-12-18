@@ -34,6 +34,11 @@ section {
     padding: 80px 0;
 }
 
+/*make the content smaller inside the div*/
+.box{
+    padding: 1%;
+}
+
 /*
 inline element, block element, 
 inline block just like inline element, but it can have padding and margin.
@@ -115,11 +120,11 @@ header {
 }
 
 h1,
-h2 {
+h2,h3 {
     /* why set again? because browser overwritten as it is tag <h*/
     font-weight: 300;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    
 }
 
 h1 {
@@ -130,6 +135,7 @@ h1 {
     more flexiable*/
     font-size: 240%;
     word-spacing: 4px;
+    letter-spacing: 1px;
 }
 
 h2 {
@@ -137,6 +143,12 @@ h2 {
     word-spacing: 2px;
     text-align: center;
     margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+h3{
+    font-size: 110%;
+    margin-bottom: 15px;
 }
 /*presto, check source code , select it from source code and see the box , what it looks like
 looks the h2:after is part of h2.
@@ -158,6 +170,16 @@ h2:after {
     width: 70%;
     /*using follow to make the <p> centered*/
     margin-left: 15%;
+}
+/*line-height: refer to the font size*/
+.box p{font-size: 90%;line-height: 145%;}
+
+/*-----ICONS-----*/
+.icon-big{
+    font-size: 350%;
+    display: block;
+    color: #e67e22;
+    margin-bottom: 10px;
 }
 
 .logo {

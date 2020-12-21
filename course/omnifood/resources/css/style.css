@@ -74,7 +74,7 @@ inline block just like inline element, but it can have padding and margin.
 
 /*element's size = padding + border*/
 .btn-ghost:link,
-.btn-full:visited {
+.btn-ghost:visited {
     border: 1px solid #f0932b;
     color: #f0932b
 }
@@ -87,14 +87,16 @@ inline block just like inline element, but it can have padding and margin.
 }
 
 /* make the border color when hover/active */
-/* about the overwritten: the last one will take priority. For example, when hover/active, background-color will has different values, put the one you want take priority in the last of the */
+/* about the overwritten: the last one will take priority. For example, when hover/active, 
+background-color will has different values, put the one you want take priority in the last of the line
+*/
 .btn-full:hover,
 .btn-full:active {
     border: #e98310;
 }
 
 .btn-ghost:hover,
-.btn-full:active {
+.btn-ghost:active {
     border: #e98310;
     color: white;
 }
@@ -107,15 +109,17 @@ header {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hero.jpg);
     background-size: cover;
     background-position: center;
+    /* view poit heigth */
     height: 100vh;
 }
 
 .hero-text-box {
     position: absolute;
     width: 1140px;
+    /* used when absoluted position */
     top: 50%;
     left: 50%;
-    /*makes the picture in center*/
+    /*makes the text(the div) in center*/
     transform: translate(-50%, -50%);
 }
 
@@ -151,7 +155,7 @@ h3{
     margin-bottom: 15px;
 }
 /*presto, check source code , select it from source code and see the box , what it looks like
-looks the h2:after is part of h2.
+looks the h2:after is part of h2. So, the margin-bottom defined for <h2> will start from the h2:after
 */
 h2:after {
     display: block;/*make it as a block*/
@@ -160,6 +164,7 @@ h2:after {
     content: " ";
     width: 100px;
     margin: 0 auto;/*make the line centered*/
+    /* this is the space between h2 and THIS. THIS has 30px at bottom and 30px top */
     margin-top: 30px;
 }
 
@@ -197,8 +202,8 @@ h2:after {
 }
 
 .main-nav li {
+    /* make the list item in a single line, not block element */
     display: inline-block;
-    /*all list elements are in single line*/
     margin-left: 40px;
 }
 

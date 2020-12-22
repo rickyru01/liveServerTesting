@@ -225,3 +225,33 @@ h2:after {
 }
 
 /* icon: ionicons.com */
+
+/* --------------------------------------------- */
+/* MEALS */
+/* --------------------------------------------- */
+
+.meals-showcase{
+    /* e.g. no squares in front of each 'list item' of this list<ul> . But 'list' and 'list items' still are block elements */
+    list-style: none;
+    /*  full screen of width, the 'row' class is not set in the section */
+    width: 100%;
+}
+
+.meals-showcase li{
+    display: block;
+    /* no break by setting the float */
+    float: left;
+    /* 4 photos each line. meaning fullfill its parent */
+    width: 25%;
+}
+
+.meal-photo{
+    /* fullfill the parent that is <li> */
+    width: 100%;
+    margin: 0;
+}
+.meal-photo img{
+    /* fullfill the parent that is <figure> */
+    width: 100%;
+    height: auto;
+}

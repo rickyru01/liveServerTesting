@@ -229,6 +229,11 @@ h2:after {
 /* --------------------------------------------- */
 /* MEALS */
 /* --------------------------------------------- */
+.section-meals{
+    /* overwrite the padding defined by .section class for this section.Because there is too much 
+    space between sections */
+    padding: 0;
+}
 
 .meals-showcase{
     /* e.g. no squares in front of each 'list item' of this list<ul> . But 'list' and 'list items' still are block elements */
@@ -249,9 +254,29 @@ h2:after {
     /* fullfill the parent that is <li> */
     width: 100%;
     margin: 0;
+    /* make the overflow part not visible. cutted.
+    Then you will not see the browser scrool bar horizonly*/
+    overflow: hidden;
+    background-color: black;
 }
 .meal-photo img{
     /* fullfill the parent that is <figure> */
     width: 100%;
     height: auto;
+    /* make the image as 1.15 size of original one, 
+    this will cause the the images(width) overflow outside the browser and you will see the
+    browser scroll bar horizonly */
+    transform: scale(1.15);
+    transition: transform 0.5s; opacity: 0.5s;
+    /* setting the transparent,need to use this with background color together to achive 
+    desired effect. E.g. parent's background color */
+    opacity: 0.7;
+    
+}
+
+.meal-photo img:hover{
+    /* actually, it should be 1. but there is a white bar when transformation. setting to 1.03 will
+    eliminates the white bar */
+    transform: scale(1.03);
+    opacity: 1;
 }

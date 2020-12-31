@@ -16,6 +16,16 @@ html {
     text-rendering: optimizeLegibility;
 }
 
+/* clear the float. Add the clearfix class to the 2 <ul> because the list item using the float, clear them in parent <ul> */
+.clearfix {zoom: 1;}
+.clearfix::after{
+    content: '.';
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
 /* ----------------------------------------------------- */
 /* RESUABLE COMPONENTS  */
 /* ----------------------------------------------------- */

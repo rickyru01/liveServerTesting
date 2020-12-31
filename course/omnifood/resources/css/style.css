@@ -26,7 +26,7 @@ html {
 }
 
 div {
-    border: dashed thick blue;
+    border: dashed 2px blue;
 }
 
 /* using padding instead of margin, thinking if you want to add background image for the box? */
@@ -286,4 +286,65 @@ h2:after {
     eliminates the white bar */
     transform: scale(1.03);
     opacity: 1;
+}
+
+/* --------------------------------------------- */
+/* HOW IT WORKS */
+/* --------------------------------------------- */
+
+.section-steps{
+    background-color:#f4f4f4;
+}
+/* 
+We need to set the left phone image and right step text with different values.
+.steps-box {
+    margin-top: 30px;
+} */
+
+/* the first element with class .steps-box */
+.steps-box:first-child{
+    /* not only align text, but anything inside the container(inline elements like image, text...) */
+    text-align: right;
+    /* The size of the padding as a percentage, relative to the width of the containing block. */
+    padding-right: 3%;
+    /* setting this to 30px, setting the last-child to 70px. Setting different values makes the text lower than the phone image  */
+    margin-top: 30px;
+}
+
+.steps-box:last-child{
+    padding-left: 3%;
+    margin-top: 70px;
+}
+
+.app-screen{
+    width: 40%;
+}
+.works-step{
+    margin-bottom: 50px;
+}
+/* lower the 2 images at bottom of the steps */
+.works-step:last-of-type{
+    margin-bottom: 80px;
+}
+
+
+.works-step div{
+    color: #e67e22;
+    border: 2px solid #e67e22;
+    /* no line break, so the number can be in the same line with the text with float property */
+    display: inline-block;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    font-size: 150%;
+    padding: 5px;
+    float: left;
+    margin-right: 30px;
+}
+/* make images same height */
+.btn-app img{
+    height: 50px;
+    width: auto;
+    margin-right: 10px;
 }

@@ -196,6 +196,36 @@ h2:after {
     color: #e67e22;
     margin-bottom: 10px;
 }
+.icon-small{
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    color: #e67e22;
+    font-size: 120%;
+    margin-right: 10px;
+
+    /* secret to align text and icons. just for reference. no big difference without it */
+    line-height: 120%;
+    vertical-align: middle;
+    margin-top: -5px;
+}
+
+/*---------LINKS---------*/
+a:link,
+a:visited{
+    color: #e67e22;
+    text-decoration: none;
+    /* space between link text and the border */
+    padding-bottom: 1px;
+    border-bottom: 1px solid #e67e22;
+    transition: border-bottom 0.2s, color 0.2s;
+}
+
+a:hover,
+a:active{
+    color: #555;
+    border-bottom: 1px solid transparent;
+}
 
 .logo {
     margin-top: 20px;
@@ -353,9 +383,33 @@ We need to set the left phone image and right step text with different values.
     float: left;
     margin-right: 30px;
 }
+/* remove the border effects brought by section 4 */
+.btn-app:link,
+.btn-app:visited{
+    border: 0px;
+}
 /* make images same height */
 .btn-app img{
     height: 50px;
     width: auto;
     margin-right: 10px;
 }
+
+/* --------------------------------------------- */
+/* SECTION 4 CITIES */
+/* --------------------------------------------- */
+
+.box img{
+    /* parent */
+    width: 100%;
+    height: auto;
+    /* h3 force line break, so, there is 15px between image and the h3 on the bottom */
+    margin-bottom: 15px;
+}
+
+.city-feature{
+    margin-bottom: 5px;
+}
+
+
+

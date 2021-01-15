@@ -121,6 +121,7 @@ header {
     background-position: center;
     /* view poit heigth */
     height: 100vh;
+    background-attachment: fixed;
 }
 
 .hero-text-box {
@@ -410,6 +411,51 @@ We need to set the left phone image and right step text with different values.
 .city-feature{
     margin-bottom: 5px;
 }
+/* --------------------------------------------- */
+/* SECTION 5 TESTIMONIALS */
+/* --------------------------------------------- */
+.section-testimonials{
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) , url(img/back-customers.jpg);
+    background-size: cover;
+    /* set font coler */
+    color: #fff;
+    /* scolling and you will see the image does not move along the content.add for the header image as well */
+    background-attachment:fixed
+}
 
+blockquote{
+    /* The size of the padding as a percentage, relative to the width of the containing block. */
+    /* that is the parent div */
+    padding: 2%;
+    font-style: italic;
+    line-height: 145%;
+    position: relative;
+    margin-top: 40px;
+}
 
+blockquote::before{
+    /* https://css-tricks.com/snippets/html/glyphs */
+    /* content: "A"; */
+    content: "\201C";
+    font-size: 500%;
+    /* force line break */
+    display: block;
+    position: absolute;
+    /* must set parent's position to be relative so the following will take effect */
+    top: -5px;
+    left: -5px;
+}
+cite{
+    font-size: 90%;
+    margin-top: 25px;
+    /* need a line break after the blockquote and this cite */
+    display: block;
+    
+}
 
+cite img{
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}

@@ -36,7 +36,7 @@ html {
 }
 
 div {
-    border: dashed 2px blue;
+    /* border: dashed 2px blue; */
 }
 
 /* using padding instead of margin, thinking if you want to add background image for the box? */
@@ -458,4 +458,60 @@ cite img{
     border-radius: 50%;
     margin-right: 10px;
     vertical-align: middle;
+}
+
+/* --------------------------------------------- */
+/* SECTION 6 SIGN UP */
+/* --------------------------------------------- */
+.section-plans{
+    background-color: #f4f4f4;
+}
+.plan-box{
+    background-color: #fff;
+    border-radius: 5px;
+    width: 90%;
+    margin-left: 5%;
+    /* shadow of the div box */
+    box-shadow: 0 2px 2px #efefef;
+}
+
+.plan-box div {
+    padding: 15px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.plan-box div:first-child{
+    /* make the first block bg color in between */
+    background-color: #fcfcfc;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.plan-box div:last-child{
+    /* make the buttons centered */
+    text-align: center;
+    /* remove the last border */
+    border: 0;
+}
+
+.plan-price{
+    font-size: 300%;
+    margin-bottom: 10px;
+    font-weight: 100;
+    color:#e67e22;
+}
+/* span usually for this only one purpose:format part of text in a <p> tag, with a different style setting */
+.plan-price span{
+    /* note: the 30% is based on the containing block that is the div(plan-price) not the original font size!! */
+    font-size: 30%;
+    font-weight: 300;
+}
+.plan-price-meal{
+    font-size: 80%;
+}
+
+.plan-box ul{
+    list-style: none;
+}
+.plan-box ul li{
+    /* give some space between list items */
+    padding: 5px 0;
 }

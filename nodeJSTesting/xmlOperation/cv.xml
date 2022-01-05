@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="CV_CUBE_STARJOIN_Booking" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="A_CUB_STARJOIN_BOOKING"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CV_FACT_BOOKING">
+    <resourceUri>CV_FACT_BOOKING</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="BookingFact">
+    <viewAttributes>
+      <viewAttribute id="CUSTOMID"/>
+      <viewAttribute id="ORDER_DATE"/>
+      <viewAttribute id="COUNTER"/>
+      <viewAttribute id="AGENCYNUM"/>
+      <viewAttribute id="WUNIT"/>
+      <viewAttribute id="CONNID"/>
+      <viewAttribute id="FLDATE"/>
+      <viewAttribute id="BOOKID"/>
+      <viewAttribute id="LUGGWEIGHT"/>
+      <viewAttribute id="FORCURAM"/>
+      <viewAttribute id="LOCCURAM"/>
+      <viewAttribute id="Y_CLASS"/>
+      <viewAttribute id="FIRST_CLASS"/>
+      <viewAttribute id="BUSINESS_CLASS"/>
+      <viewAttribute id="J_SMOKER"/>
+      <viewAttribute id="X_SMOKER"/>
+      <viewAttribute id="BOOK_CNT"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="FLIGHT_ID" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
+        <formula>&quot;CONNID&quot;||'-'||&quot;FLDATE&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="CV_FACT_BOOKING"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="BookingFact">
+  <attributes>
+    <attribute id="CUSTOMID$local">
+      <keyMapping columnObjectName="BookingFact" columnName="CUSTOMID"/>
+    </attribute>
+    <attribute id="ORDER_DATE$local">
+      <keyMapping columnObjectName="BookingFact" columnName="ORDER_DATE"/>
+    </attribute>
+    <attribute id="FLIGHT_ID$local">
+      <keyMapping columnObjectName="BookingFact" columnName="FLIGHT_ID"/>
+    </attribute>
+    <attribute id="AGENCYNUM$local">
+      <keyMapping columnObjectName="BookingFact" columnName="AGENCYNUM"/>
+    </attribute>
+    <attribute id="COUNTER$local">
+      <keyMapping columnObjectName="BookingFact" columnName="COUNTER"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="CC_3" order="12" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="13">
+        <formula>&quot;CustomerEmailAlias&quot;</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  
+    <calculatedAttribute id="CC_4" order="16" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+  
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="13">
+  
+        <formula>&quot;Flight_Date&quot;</formula>
+  
+      </keyCalculation>
+  
+    </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures>
+    <measure id="LuggWeight" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="LuggWeight"/>
+      <measureMapping columnObjectName="BookingFact" columnName="LUGGWEIGHT"/>
+    </measure>
+    <measure id="BookPriceCurrency" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="BookPriceCurrency"/>
+      <measureMapping columnObjectName="BookingFact" columnName="FORCURAM"/>
+    </measure>
+    <measure id="BookPrice" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="BookPrice"/>
+      <measureMapping columnObjectName="BookingFact" columnName="LOCCURAM"/>
+    </measure>
+    <measure id="YSeatClassNum" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="YSeatClassNum"/>
+      <measureMapping columnObjectName="BookingFact" columnName="Y_CLASS"/>
+    </measure>
+    <measure id="FirstSeatClassNum" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="FirstSeatClassNum"/>
+      <measureMapping columnObjectName="BookingFact" columnName="FIRST_CLASS"/>
+    </measure>
+    <measure id="BusinessSeatClassNum" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="BusinessSeatClassNum"/>
+      <measureMapping columnObjectName="BookingFact" columnName="BUSINESS_CLASS"/>
+    </measure>
+    <measure id="JSmokerNum" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="JSmokerNum"/>
+      <measureMapping columnObjectName="BookingFact" columnName="J_SMOKER"/>
+    </measure>
+  
+    <measure id="XSmokerNum" order="8" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="XSmokerNum"/>
+      <measureMapping columnObjectName="BookingFact" columnName="X_SMOKER"/>
+    </measure>
+    <measure id="BookNum" order="9" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="BookNum"/>
+      <measureMapping columnObjectName="BookingFact" columnName="BOOK_CNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures>
+    <measure id="CC_1" order="10" aggregationType="count" measureType="simple" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
+      <formula>&quot;LuggWeight&quot;*2</formula>
+    
+      </measure>
+  
+    <measure id="CC_2" order="11" aggregationType="count" measureType="simple" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
+      <formula>&quot;Customer_Name&quot;||'ABC'</formula>
+      </measure>
+    <measure id="COUNT_1" order="15" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" aggregatable="true" datatype="BIGINT" length="">
+      <exceptionAggregation>
+        <attribute attributeName="Cusomer_ID" dimensionUri="CV_DIM_Customer"/>
+      </exceptionAggregation>
+      <formula>1</formula>
+      </measure>
+  </calculatedMeasures>
+  <restrictedMeasures>
+    <measure id="RES_1" order="13" aggregationType="sum" datatype="DECIMAL" length="8" scale="4" baseMeasure="LuggWeight">
+      <descriptions defaultDescription=""/>
+      <restriction logicalOperator="AND">
+        <filter xsi:type="Privilege:AttributeFilter" attributeName="Customer_Name">
+          <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Horst Picard"/>
+        </filter>
+        <dimensionUri>CV_DIM_Customer</dimensionUri>
+      </restriction>
+      <restriction logicalOperator="AND">
+        <filter xsi:type="Privilege:AttributeFilter" attributeName="Counter_NO">
+          <valueFilter xsi:type="AccessControl:SingleValueFilter" operator="GT" including="true" value="00000017"/>
+        </filter>
+        <dimensionUri>CV_DIM_Counter</dimensionUri>
+      </restriction>
+    </measure>
+    <measure id="RES_2" order="14" aggregationType="sum" datatype="DECIMAL" length="15" scale="2" baseMeasure="BookPrice" restrictionExpressionLanguage="SQL">
+      <descriptions defaultDescription=""/>
+      <restrictionExpression>&quot;Time_ShortDay&quot;</restrictionExpression>
+    </measure>
+  </restrictedMeasures>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="CV_DIM_Customer">
+      <attributes>
+        <attributeRef>CUSTOMID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>Cusomer_ID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference alias="CustomerEmailAlias" attributeName="Customer_Email"/>
+        <attributeReference attributeName="MANDT" hidden="true"/>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="CV_DIM_OrderDate">
+      <attributes>
+        <attributeRef>ORDER_DATE$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>Time_DateSAP</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference attributeName="SECOND" hidden="true"/>
+        <attributeReference attributeName="MINUTE" hidden="true"/>
+        <attributeReference attributeName="HOUR" hidden="true"/>
+        <attributeReference attributeName="Time_ShortDay" hidden="true"/>
+        <attributeReference attributeName="Time_ShortMonth" hidden="true"/>
+        <attributeReference attributeName="Time_ShortQuarter" hidden="true"/>
+        <attributeReference attributeName="Time_YearInt" hidden="true"/>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="CV_DIM_Flight">
+      <attributes>
+        <attributeRef>FLIGHT_ID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>Flight_Identfier</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference attributeName="CURRCODE" hidden="true"/>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="CV_DIM_TravelAgency">
+      <attributes>
+        <attributeRef>AGENCYNUM$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>TravelAgency_NO</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="leftOuter" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="CV_DIM_Counter">
+      <attributes>
+        <attributeRef>COUNTER$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>Counter_NO</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="leftOuter" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    <shape expanded="true" modelObjectName="BookingFact" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="302"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="BookingFact" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="271" y="7"/>
+      <rectangleSize width="183"/>
+    </shape>
+  
+    <shape modelObjectName="CV_DIM_Customer" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="-45" y="371"/>
+      <rectangleSize width="178"/>
+    </shape>
+  
+    <shape modelObjectName="CV_DIM_OrderDate" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="612" y="-102"/>
+      <rectangleSize width="179"/>
+    </shape>
+    <shape modelObjectName="CV_DIM_Flight" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="-72" y="-137"/>
+      <rectangleSize width="203"/>
+    </shape>
+  
+    <shape modelObjectName="CV_DIM_TravelAgency" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="488" y="418"/>
+      <rectangleSize width="200"/>
+    </shape>
+  
+    <shape modelObjectName="CV_DIM_Counter" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="612" y="202"/>
+      <rectangleSize width="199"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

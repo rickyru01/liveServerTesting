@@ -84,7 +84,7 @@
 
 
     //Start: Using javascript built-in Promise
-
+    
     const doWork1 = (resolve, reject) => {
         setTimeout(() => resolve("Hellow world"), 1000);
     };
@@ -92,4 +92,6 @@
     const someText = new Promise(doWork);
 
     someText.then((val)=>console.log("builtIn 1st log:"+val));
+
+    
     //End: Using javascript built-in Promise

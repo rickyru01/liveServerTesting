@@ -1,0 +1,7 @@
+.testBoxModel {
+    height: 100px;
+    text-align: center;
+    font-size: 20px;
+    padding: 25px;
+    background-color: aqua;
+};

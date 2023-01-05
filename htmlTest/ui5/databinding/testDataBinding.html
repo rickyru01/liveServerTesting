@@ -1,0 +1,165 @@
+<!--
+    dropdown control , items bindings. using for like {name}. note { name } will get empty value. maybe ui5 can remove the space to avoid?
+    https://gist.github.com/denisenepraunig/5a2049f13f8342f5608f
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>SAPUI5 JS View</title>
+
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.ui.table, sap.ui.core,sap.m"
+        data-sap-ui-xx-bindingSyntax="complex">
+    </script>
+
+    <script>
+        var app = new sap.m.App("helloWorldApp", { initialPage: "page1" });
+
+        var oPage1 = new sap.m.Page("page1", {
+            title: "Simple Form page"
+        });
+
+        oPage1.addStyleClass("sapUiFioriObjectPage");
+
+        var mainLayout;
+        var dataModel = new sap.ui.model.json.JSONModel();
+        var getSemanticAttributeMappingsContent = function () {
+            samPropertiesLayout = new sap.ui.commons.layout.VerticalLayout();
+
+            var mLayout = new sap.ui.commons.layout.MatrixLayout({
+                layoutFixed: true,
+                widths: ['5%', '10%', '70%', '15%']
+            });
+
+            var leftInputColumnLabel = new sap.ui.commons.Label({
+                width: '100%',
+                textAlign: 'End',
+                text: 'tit_left_input_column:'
+            }).addStyleClass('labelFloat');
+            var leftInputColumnField = new sap.ui.commons.TextField({
+                width: '90%',
+                enabled: false,
+                value: '{/inputLeftColumn}'
+            });
+            var rightInputColumnLabel = new sap.ui.commons.Label({
+                width: '100%',
+                textAlign: 'End',
+                text: 'tit_right_input_column:'
+            }).addStyleClass('labelFloat');
+            var rightInputColumnField = new sap.ui.commons.TextField({
+                width: '90%',
+                enabled: false,
+                value: '{/inputRightColumn}'
+            });
+            mLayout.createRow(null, leftInputColumnLabel, leftInputColumnField, null);
+            mLayout.createRow(null, rightInputColumnLabel, rightInputColumnField, null);
+            var samTableLabel = new sap.ui.commons.Label({
+                width: '100%',
+                textAlign: 'End',
+                text: 'tit_filter_mappings:'
+            }).addStyleClass('labelFloat');
+            var attr1Combo = new sap.m.Select({
+                enabled: true,
+                items: {
+                    path: '/outputLeftColumns',
+                    template: new sap.ui.core.ListItem({
+                        key: '{columnName}',
+                        text: '{columnName}'
+                    })
+                },
+                selectedKey: '{outputLeftColumn}'
+            });
+            var attr1Column = new sap.ui.table.Column({
+                width: '100%',
+                label: new sap.ui.commons.Label({
+                    text: 'tit_left_output_column',
+                    textAlign: sap.ui.core.TextAlign.Center
+                }),
+                template: attr1Combo
+            });
+            var attr2Combo = new sap.m.Select({
+                enabled: true,
+                items: {
+                    path: '/outputRightColumns',
+                    template: new sap.ui.core.ListItem({
+                        key: '{columnName}', // note: no any space around the columnName. 
+                        text: '{columnName}'
+                    })
+                },
+                selectedKey: '{outputRightColumn}'
+            });
+            var attr2Column = new sap.ui.table.Column({
+                width: '100%',
+                label: new sap.ui.commons.Label({
+                    text: 'tit_right_output_column',
+                    textAlign: sap.ui.core.TextAlign.Center
+                }),
+                template: attr2Combo
+            });
+
+            var oSAMsTable = new sap.ui.table.Table({
+                selectionMode: 'MultiToggle',
+                visibleRowCount: 4,
+                columns: [attr1Column, attr2Column]
+
+            });
+            oSAMsTable.bindRows('/sams');
+            mLayout.createRow(null, samTableLabel, oSAMsTable, null);
+            samPropertiesLayout.addContent(mLayout);
+
+            var btn01 = new sap.m.Button({
+                text: 'btn01',
+                press: function (event) {
+                    dataModel.setData(
+                        {
+                            outputLeftColumns: [{ columnName: "product" }],
+                            outputRightColumns: [{ columnName: "product_name" }],
+                            inputLeftColumn: "product",
+                            inputRightColumn: "product_name",
+                            sams: [{ key: 0, outputLeftColumn: "product", outputRightColumn: "product_name" }]
+                        }
+                    );
+                    dataModel.updateBindings(true);
+                    dataModel.refresh(true);
+                }
+            });
+            var btn02 = new sap.m.Button({
+                text: 'btn02',
+                press: function (event) {
+                    dataModel.setData(
+                        {
+                            outputLeftColumns: [{ columnName: "product1" },{ columnName: "product2" }],
+                            outputRightColumns: [{ columnName: "product_name1" }],
+                            inputLeftColumn: "product1",
+                            inputRightColumn: "product_name1",
+                            sams: [{ key: 0, outputLeftColumn: "product1", outputRightColumn: "product_name1" }]
+                        }
+                    );
+                }
+            });
+
+            mLayout.createRow(null, btn01, btn02, null);
+            return samPropertiesLayout;
+        };
+        mainLayout = getSemanticAttributeMappingsContent();
+        mainLayout.setModel(dataModel);
+        oPage1.addContent(mainLayout);
+        // --- add page ---
+        app.addPage(oPage1);
+
+        app.placeAt("uiArea");
+    </script>
+
+
+    </script>
+
+</head>
+
+<body class="sapUiBody" role="application" id="uiArea">
+</body>
+
+</html>

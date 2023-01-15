@@ -1,2 +1,3 @@
 course/__MACOSX*
 course/Omnifood*
+**/node_modules/

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.m,sap.ui.table">
+        </script>
+    <script>
+       /*
+       set value state using model 
+       https://answers.sap.com/questions/11007082/sapuitabletable-resetting-valuestate-during-render.html
+       */
+        var oData = [{ name: "Sample" }, { name: "Sample2" }];
+        var jModel = new sap.ui.model.json.JSONModel();
+        jModel.setData(oData);
+
+        // Create layout.
+        var vLayout = new sap.ui.layout.VerticalLayout({ width: "50%" });
+
+        // Create IconTabBar
+        var tabBar = new sap.m.IconTabBar({
+            expandable: false, // boolean
+            expanded: true, // boolean
+            visible: true // boolean
+        });
+
+        var table = new sap.ui.table.Table({
+            editable: true,
+            selectionMode: sap.ui.table.SelectionMode.Single,
+            selectionBehavior: sap.ui.table.SelectionBehavior.Row
+        });
+        table.setModel(jModel);
+        table.bindRows("/");
+
+        table.addColumn(new sap.ui.table.Column({
+            label: new sap.ui.commons.Label({ text: "Value" }),
+            template: new sap.m.Input({
+                value: "{name}",
+                valueState: '{state}',
+                valueStateText:'{stateText}',
+                liveChange: function () { // cc, set value state using model.
+                    var obj = this.getBindingContext().getObject();
+                    obj.state = sap.ui.core.ValueState.Error;
+                    obj.stateText = 'duplication.'
+                }
+            })
+        }));
+
+        var item1 = new sap.m.IconTabFilter("inputOne", {
+            text: "This is tab1",
+            key: "inputOne",
+            content: [table]
+        });
+
+        var item2 = new sap.m.IconTabFilter("inputTwo", {
+            text: "This is tab3",
+            key: "inputTwo",
+            content: [
+                new sap.m.Input("if2", {
+                    name: "Input Field3"
+                })] // sap.ui.core.Control
+        });
+
+
+
+        tabBar.addItem(item1);
+        tabBar.addItem(item2);
+        vLayout.addContent(tabBar);
+
+        vLayout.placeAt("content");
+    </script>
+    <title>OpenUI5 ValueState Test</title>
+
+</head>
+
+<body class='sapUiBody' id='content'>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>SAPUI5 JS View</title>
+
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" 
+        data-sap-ui-xx-bindingSyntax="complex">
+    </script>
+
+    <script>
+        var app = new sap.m.App("helloWorldApp", { initialPage: "page1" });
+        var oPage1 = new sap.m.Page("page1", {
+            title: "Simple Form page"
+        });
+        oPage1.addStyleClass("sapUiFioriObjectPage");
+        var mainLayout = new sap.ui.commons.layout.VerticalLayout();
+        //testing message box
+        sap.m.MessageBox.information('is this information support new line?give it a test\n - point 1\n point2');
+        oPage1.addContent(mainLayout);
+        // --- add page ---
+        app.addPage(oPage1);
+
+        app.placeAt("uiArea");
+    </script>
+
+
+    </script>
+
+</head>
+
+<body class="sapUiBody" role="application" id="uiArea">
+</body>
+
+</html>

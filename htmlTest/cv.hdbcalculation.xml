@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="mini::AliasTest" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" calculationScenarioType="TREE_BASED" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+<origin/>
+  <descriptions defaultDescription="AliasTest"/>
+  <metadata changedAt="2016-08-29 13:27:15.033" createdAt="2016-08-29 13:27:15.032"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="20"/>
+  <dataSources>
+    <DataSource id="EMPLOYEE">
+      <resourceUri>tables::Employee</resourceUri>
+    </DataSource>
+    <DataSource id="tables::Employee">
+      <resourceUri>tables::Employee</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="EMPLOYEE_ID"/>
+        <viewAttribute id="VALID_FROM"/>
+        <viewAttribute id="VALID_TO"/>
+        <viewAttribute id="MANAGER_ID"/>
+        <viewAttribute id="MANAGER_MANAGER_ID"/>
+        <viewAttribute id="MANAGER_VALID_FROM"/>
+        <viewAttribute id="MANAGER_VALID_TO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+        <input node="EMPLOYEE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EMPLOYEE_ID" source="EMPLOYEE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALID_FROM" source="VALID_FROM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALID_TO" source="VALID_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANAGER_ID" source="MANAGER_ID"/>
+      </input>
+      <input node="tables::Employee">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANAGER_MANAGER_ID" source="MANAGER_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANAGER_VALID_FROM" source="VALID_FROM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANAGER_VALID_TO" source="VALID_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANAGER_ID" source="EMPLOYEE_ID"/>
+      </input>
+      <joinAttribute name="MANAGER_ID"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions defaultDescription="AliasTest"/>
+    <attributes>
+      <attribute id="EMPLOYEE_ID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EMPLOYEE_ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="EMPLOYEE_ID"/>
+      </attribute>
+      <attribute id="VALID_FROM" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VALID_FROM"/>
+        <keyMapping columnObjectName="Join_1" columnName="VALID_FROM"/>
+      </attribute>
+      <attribute id="VALID_TO" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VALID_TO"/>
+        <keyMapping columnObjectName="Join_1" columnName="VALID_TO"/>
+      </attribute>
+      <attribute id="MANAGER_ID" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANAGER_ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="MANAGER_ID"/>
+      </attribute>
+      <attribute id="MANAGER_MANAGER_ID" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANAGER_MANAGER_ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="MANAGER_MANAGER_ID"/>
+      </attribute>
+      <attribute id="MANAGER_VALID_FROM" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANAGER_VALID_FROM"/>
+        <keyMapping columnObjectName="Join_1" columnName="MANAGER_VALID_FROM"/>
+      </attribute>
+      <attribute id="MANAGER_VALID_TO" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANAGER_VALID_TO"/>
+        <keyMapping columnObjectName="Join_1" columnName="MANAGER_VALID_TO"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="100"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="40" y="210"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape modelObjectName="tables::Employee" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+        <upperLeftCorner x="20" y="30"/>
+        <rectangleSize width="250"/>
+      </shape>
+      <shape modelObjectName="tables::Employee" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+        <upperLeftCorner x="320" y="30"/>
+        <rectangleSize width="250"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

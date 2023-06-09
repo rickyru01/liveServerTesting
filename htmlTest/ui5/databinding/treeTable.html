@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>SAPUI5 JS View</title>
+
+
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.m,sap.ui.table">
+        </script>
+    </script>
+    <script>
+        var dm = {
+            impactedObjects: [
+                {
+                    OBJECT_NAME: "src/FeatureExploring/propagation/l1.hdbcalculationview",
+                    DEPENDENCY_NAME: "src/FeatureExploring/propagation/l2.hdbcalculationview",
+                    impactedObjects: [
+                        {
+                            OBJECT_NAME: "src/FeatureExploring/propagation/l2.hdbcalculationview",
+                            DEPENDENCY_NAME: "src/FeatureExploring/propagation/l3.hdbcalculationview",
+                            impactedObjects: [
+                                {
+                                    OBJECT_NAME: "src/FeatureExploring/propagation/l3.hdbcalculationview",
+                                    DEPENDENCY_NAME: "src/FeatureExploring/propagation/l4.hdbcalculationview"
+                                }
+                            ]
+                        },
+                        {
+                            OBJECT_NAME: "src/FeatureExploring/propagation/l2.hdbcalculationview",
+                            DEPENDENCY_NAME: "src/FeatureExploring/propagation/l4.hdbcalculationview"
+                        }
+                    ]
+                },
+                {
+                    OBJECT_NAME: "src/FeatureExploring/propagation/l1.hdbcalculationview",
+                    DEPENDENCY_NAME: "src/FeatureExploring/propagation/l2_1.hdbcalculationview"
+                },
+                {
+                    OBJECT_NAME: "src/FeatureExploring/propagation/l1.hdbcalculationview",
+                    DEPENDENCY_NAME: "src/FeatureExploring/propagation/l4.hdbcalculationview"
+                }
+            ],
+            OBJECT_NAME: "src/FeatureExploring/propagation/l1.hdbcalculationview",
+            DEPENDENCY_NAME: null
+        };
+        var columnModel = new sap.ui.model.json.JSONModel();
+
+        columnModel.setData(dm);
+
+        var impactedListTable = new sap.ui.table.TreeTable({
+            editable: false,
+            width: '100%',
+            height: '580px',
+            visibleRowCount: 5,
+            selectionMode: sap.ui.table.SelectionMode.None,
+            //visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+            navigationMode: sap.ui.table.NavigationMode.Scrollbar,
+            enableColumnReordering: true,
+            expandFirstLevel: false
+        });
+        impactedListTable.addColumn(new sap.ui.table.Column({
+            template: //new sap.m.Image({
+                new sap.ui.core.Icon({
+                    src: {
+                        path: 'DEPENDENCY_NAME',
+                        formatter: function (name) {
+                            if (name) {//the name can be null when going to child level. not sure why. but this is must to check.
+                                if (name.includes('hdbcalculationview')) {
+                                    //return that.calcIcon;
+                                    return 'sap-icon://sys-enter';
+                                } else if (status === '.hdbcds') {
+                                    //return that.cdsIcon;
+                                    return 'sap-icon://sys-enter';
+                                } else if (status === '.hdbanalyticprivilege') {
+                                    //return that.apIcon;
+                                    return 'sap-icon://sys-enter';
+                                }
+                            }
+                        }
+                    }
+                }).addStyleClass('calcviewSVGImageClass'),
+            hAlign: 'Center',
+            vAlign: 'Center',
+            enableBusyIndicator: true
+        })).addStyleClass('impactedCell');
+        impactedListTable.addColumn(new sap.ui.table.Column({
+            label: 'imp obj',
+            template: new sap.ui.commons.TextView().bindProperty(
+                'text', 'DEPENDENCY_NAME'),
+            hAlign: 'Center',
+            vAlign: 'Center',
+            enableBusyIndicator: true,
+            width: '60%'
+        })).addStyleClass('impactedCell');
+
+        impactedListTable.addColumn(new sap.ui.table.Column({
+            label: 'Refactor Support',
+            template: new sap.ui.core.Icon({
+                src: {
+                    path: 'DEPENDENCY_NAME',
+                    formatter: function (name) {
+                        if (name) {
+                            if (name.includes('.hdbcalculationview')) {
+                                return 'sap-icon://sys-enter';
+                            } else if (name.includes('.hdbcds')) {
+                                return 'sap-icon://sys-cancel';
+                            } else if (name.includes('.hdbanalyticprivilege')) {
+                                return 'sap-icon://sys-enter';
+                            }
+                        }
+                    }
+                },
+                tooltip: {
+                    path: 'refactor',
+                    formatter: function (status) {
+                        if (status) {
+                            if (name.includes('.hdbcalculationview')) {
+                                return 'Supported';
+                            } else if (name.includes('.hdbcds')) {
+                                return 'Not Supported';
+                            } else if (name.includes('.hdbanalyticprivilege')) {
+                                return 'Supported';
+                            }
+                        }
+                    }
+                }
+            }),
+            color: '#4c71af',
+            hAlign: 'Center',
+            vAlign: 'Center',
+            enableBusyIndicator: true,
+            widht: '30%'
+        })).addStyleClass('impactedCell');
+        impactedListTable.setModel(columnModel);
+        impactedListTable.bindRows('/impactedObjects');
+        // impactedListTable.bindRows({
+        // 				path: "/root",
+        // 				parameters: {
+        // 					arrayNames: ['impactedObjects']
+        // 				}
+        // 			});
+        //impactedListTable.bindRows({ path: "/root", parameters: { arrayNames: ['impactedObjects'] } });
+        //impactedListTable.bindRows({ path: "/root/impactedObjects", parameters: { arrayNames: { path: 'impactedObjects' } } });
+
+        //impactedListTable.updateBindings(true);
+
+        //this.table.setModel(that._model);
+        //this.table.bindRows({path:that.bindPath,parameters: { arrayNames: [that.bindParameter] }});
+        var vLayout = new sap.ui.layout.VerticalLayout({ width: "50%" });
+
+        vLayout.addContent(impactedListTable);
+        vLayout.placeAt("uiArea");
+    </script>
+
+
+    </script>
+
+</head>
+
+<body class="sapUiBody" role="application" id="uiArea">
+</body>
+
+</html>

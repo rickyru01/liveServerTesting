@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>SAPUI5 JS View</title>
+
+
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.m,sap.ui.table">
+        </script>
+    <script>
+        var columnParser = null;
+        var showMessageTooltip = function (textField, parser, message, messageObjects, headerMessage) {
+            var customData = null;
+            var oldTip = textField.getTooltip();
+            if (typeof oldTip === 'string') {
+                customData = new sap.ui.core.CustomData({
+                    key: 'tooltip',
+                    value: oldTip
+                });
+            }
+            var tooltip = new sap.ui.commons.Callout();
+            tooltip.addCustomData(customData);
+            if (headerMessage) {
+                tooltip.addContent(new sap.ui.layout.VerticalLayout({
+                    content: [new sap.ui.layout.HorizontalLayout({
+                        content: [new sap.m.Label({
+                            design: sap.m.LabelDesign.Bold,
+                            icon: 'sap-icon://error'
+                        }).addStyleClass('iconColorClass'), new sap.ui.commons.TextView({
+                            semanticColor: sap.ui.commons.TextViewColor.Negative,
+                            design: sap.ui.commons.TextViewDesign.Bold,
+                            text: headerMessage
+                        })]
+                    }), new sap.ui.commons.HorizontalDivider(), new sap.ui.commons.TextView({
+                        text: messageObjects + message,
+                        semanticColor: sap.ui.commons.TextViewColor.Negative,
+                        design: sap.ui.commons.TextViewDesign.Bold,
+                        editable: false
+                    })]
+                }));
+            } else {
+                tooltip.addContent(new sap.ui.layout.VerticalLayout({
+                    content: [
+                        new sap.ui.commons.TextView({
+                            text: messageObjects + message,
+                            semanticColor: sap.ui.commons.TextViewColor.Negative,
+                            design: sap.ui.commons.TextViewDesign.Bold,
+                            editable: false
+                        })
+                    ]
+                }));
+            }
+            textField.setTooltip(tooltip);
+            // textField.setValueState(sap.ui.core.ValueState.Error);
+            var textFieldInput = textField.getInputDomRef();
+            $('#' + textField.getId()).trigger('mouseenter');
+            console.log('be'+textFieldInput.selectionStart);
+            // if (typeof textFieldInput.selectionStart === 'number') {
+            //     textFieldInput.selectionStart = textFieldInput.selectionEnd = textFieldInput.value.length;
+            // }
+            console.log('af'+textFieldInput.selectionStart);
+        };
+        var INVALID_RESOURCE_CHARACTERS = ['\\', '/', '*', '?', '"', '<', '>', '|', '&', ';', '\'', '$', '%', ',', '!', '#', '+', '~', '`', '[', ']', '!',
+            '^', '=', '-', '(', ')', '{', '}'];
+        var nameField = new sap.ui.commons.TextField({
+            value: 'name.space.old::xyz',
+            name: 'Name',
+            editable: true,
+            enabled: true,
+            width: '100%',
+            liveChange: function (event) {
+                var nameField = event.getSource();
+                var oldNameSpace = 'name.space.old' + '::';
+                var currentValue = event.mParameters.liveValue;
+                var nameSpace = 'name.space.old';
+
+                if (nameSpace && nameSpace.length !== 0 && (currentValue.indexOf('::') === -1 || (currentValue.split('::')[0]) !== nameSpace)) {
+                    showMessageTooltip(nameField, columnParser, 'Invalid NamespaceAAA', undefined, undefined);
+                    // nameField.setValue(oldNameSpace);
+
+                } else if (currentValue.indexOf('::') !== currentValue.lastIndexOf('::')) {
+                    showMessageTooltip(nameField, columnParser, 'not supportedXXX', INVALID_RESOURCE_CHARACTERS,
+                        'Invalid characters in view name');
+                    nameField.setValue(oldNameSpace);
+
+                } else if (currentValue.split(':').length > 3) {
+                    showMessageTooltip(nameField, columnParser, 'not supportedYYY', INVALID_RESOURCE_CHARACTERS,
+                        'Invalid characters in view name');
+                    nameField.setValue('name.space.old::abc');
+
+                } else if ((nameSpace && (currentValue.split('::')[0] + '::') === oldNameSpace && currentValue.length > oldNameSpace.length) ||
+                    (!nameSpace && currentValue.length > 0) || ((nameSpace !== oldNameSpace) && currentValue.length > (nameSpace + '::').length)) {
+                    //refactorButton.setEnabled(true);
+                    newName = currentValue;
+                } else if ((nameSpace && currentValue.includes('::') && currentValue.split('::')[1].length === 0) || currentValue.length === 0) {
+                    showMessageTooltip(nameField, columnParser, 'Invalid NamespaceBBB', undefined, undefined);
+
+                }
+
+            }
+        }).addStyleClass('refactor_name');
+        nameField.attachBrowserEvent('keypress', function () {
+            var ch = String.fromCharCode(event.keyCode);
+            if (ch === ' ' || ch === '\n') {
+                event.preventDefault();
+
+            } else {
+                for (var j = 0; j < INVALID_RESOURCE_CHARACTERS.length; j++) {
+                    var invalidCh = INVALID_RESOURCE_CHARACTERS[j];
+                    if (invalidCh === ch) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
+        nameField.attachBrowserEvent('click', function () {
+            this.setTooltip(null);
+        });
+        var vLayout = new sap.ui.layout.VerticalLayout({ width: "50%" });
+        vLayout.addContent(nameField);
+        vLayout.placeAt('uiArea');
+
+    </script>
+
+</head>
+
+<body class="sapUiBody" role="application" id="uiArea">
+</body>
+
+</html>

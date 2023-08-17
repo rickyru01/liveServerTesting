@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>SAPUI5 JS View</title>
+
+
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.m,sap.ui.table">
+        </script>
+
+    <script>
+        var dataModel = new sap.ui.model.json.JSONModel();
+        var data = { testBoolean: true };
+        dataModel.setData(data);
+        var vLayout = new sap.ui.layout.VerticalLayout({ width: "100%" });
+        vLayout.setModel(dataModel);
+        var btn = new sap.m.Button({
+            text: "Click me", // set the button text
+            visible: '{/testBoolean}',
+            press: function () { // add a press event handler
+                alert("Button clicked!"); // show an alert when the button is clicked
+            }
+        });
+        vLayout.addContent(btn);
+        vLayout.placeAt("uiArea");
+    </script>
+</head>
+
+<body class="sapUiBody" role="application" id="uiArea">
+</body>
+
+</html>

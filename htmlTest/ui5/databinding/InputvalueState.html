@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>SAPUI5 JS View</title>
+
+
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.m,sap.ui.table">
+        </script>
+
+    </script>
+    <script>
+
+        var vLayout = new sap.ui.layout.VerticalLayout({ width: "50%" });
+
+        var oTextField = new sap.ui.commons.TextField({
+            value: "",
+            tooltip: "Please enter a value",
+            liveChange: function (oEvent) {
+                //var sInputValue = oEvent.getParameter("liveValue");
+                var sInputValue = oEvent.getSource().getLiveValue();
+                var value = oEvent.getSource().getValue();
+                console.log("Live Value: " + sInputValue);
+                console.log("Actual Value: " + value);
+                if (sInputValue === "abc") {
+                    this.setValueState(sap.ui.core.ValueState.Error);
+                    //this.rerender();MessageBox
+                    //sap.m.MessageBox.error("abc");
+                    sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
+                        MessageBox.show(
+                            "This message should appear in the message box.", {
+                            icon: MessageBox.Icon.INFORMATION,
+                            title: "My message box title",
+                            actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                            emphasizedAction: MessageBox.Action.YES,
+                            onClose: function (oAction) { / * do something * / }
+                        }
+                        );
+                    });
+                    this.setTooltip("Please enter a value");
+                } else {
+                    this.setValueState(sap.ui.core.ValueState.Success);
+                    this.setTooltip("Value entered: " + sInputValue);
+                }
+            }
+        });
+
+        var oInput = new sap.m.Input({
+            value: "", valueLiveUpdate: true,
+            liveChange: function (oEvent) {
+                // Get the live value
+                var sLiveValue = oEvent.getParameter("value");
+                var value = oEvent.getSource().getValue();
+                console.log("Actual Value: " + value);
+                // Check if the live value is a valid email address
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(sLiveValue)) {
+                    this.setValueState(sap.ui.core.ValueState.None);
+                } else {
+                    this.setValueState(sap.ui.core.ValueState.Error);
+                }
+
+                console.log("Live Value: " + sLiveValue);
+            },
+            change: function (oEvent) {
+                // Get the actual value
+                var sActualValue = oEvent.getParameter("value");
+
+                console.log("Actual ValueX: " + sActualValue);
+            }
+        });
+
+
+
+        // var oInputField = new sap.m.Input({
+        //     value: "",
+        //     tooltip: "Please enter a value",
+        //     liveChange: function (oEvent) {
+        //         var sInputValue = oEvent.getParameter("value");
+
+        //         if (sInputValue === "abc") {
+        //             this.setValueState(sap.ui.core.ValueState.Error);
+        //             this.setTooltip("Please enter a value");
+        //         } else {
+        //             this.setValueState(sap.ui.core.ValueState.Success);
+        //             this.setTooltip("Value entered: " + sInputValue);
+        //         }
+        //     }
+        // });
+        vLayout.addContent(oTextField);
+        vLayout.addContent(oInput);
+        vLayout.placeAt("uiArea");
+    </script>
+
+
+    </script>
+
+</head>
+
+<body class="sapUiBody" role="application" id="uiArea">
+</body>
+
+</html>

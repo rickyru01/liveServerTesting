@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>SAPUI5 JS View</title>
+<style>
+    .iconColorClass{
+        color:rgb(247, 8, 8) !important;
+    }
+</style>
+
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons,sap.m,sap.ui.table">
+        </script>
+
+    <script>
+        var vLayout = new sap.ui.layout.VerticalLayout({ width: "100%" });
+
+        var oGeneralTab = new sap.m.IconTabFilter({
+            key: 'general',
+            text: 'general'
+        });
+        var oAdvancedTab = new sap.m.IconTabFilter({
+            key: 'advanced',
+            text: 'advanced'
+        });
+        var oSeparator = new sap.m.IconTabSeparator({});
+
+        var oPropertiesTabContainer = new sap.m.IconTabBar({
+            items: [
+                oGeneralTab,
+                oSeparator,
+                oAdvancedTab
+            ],
+            select: function (event) {
+                if (event.mParameters.selectedKey === 'scube') {
+                    //sap.m.MessageBox.error('can not use scube');
+                    event.preventDefault();
+                }
+                //console.log(x);
+            },
+            expandable: false,
+            headerBackgroundDesign: sap.m.BackgroundDesign.Transparent,
+            backgroundDesign: sap.m.BackgroundDesign.Transparent
+        }).addStyleClass('propertiesTabContainerClass iconTabBarClass');
+
+        var oSeparatorForSCube = new sap.m.IconTabSeparator({});
+        var oSCubeTab = new sap.m.IconTabFilter({
+            key: 'scube',
+            text: 'scube',
+            enabled: true //cc gray it 
+
+        });
+        var oMsgStrip = new sap.m.MessageStrip({
+            showIcon: true,
+            'class': 'sapUiMediumMarginBottom',
+            visible: true
+        });
+        oMsgStrip.setText('SCube feature is restricted because:\n\treason1\n\treason2\n');
+        oMsgStrip.setType(sap.ui.core.MessageType.Error);
+        oSCubeTab.addContent(oMsgStrip);
+        oSCubeTab.addContent(new sap.m.Button({
+            text: "Click me", // set the button text
+            press: function () { // add a press event handler
+                alert("Button clicked!"); // show an alert when the button is clicked
+            }
+        }));
+
+        var dropdownBox = new sap.ui.commons.DropdownBox({
+            items: [
+                new sap.ui.core.ListItem({ key: "1", text: "Item 1" }),
+                new sap.ui.core.ListItem({ key: "2", text: "Item 2" }),
+                new sap.ui.core.ListItem({ key: "3", text: "Item 3" })
+            ],
+            change: function (oEvent) {
+
+                var selecetdKey = oEvent.getSource().getSelectedKey();
+                var selectedValue = oEvent.getParameter("newValue");
+                var oldValue = oEvent.getParameter("oldValue");
+
+                console.log('select: ' + selectedValue);
+                console.log('old: ' + oldValue);
+                // Check if the undesired value is selected
+                if (selectedValue === "Item 2") {
+                    // alert('not allowed');
+                    // this.setSelectedKey("1");
+                    this.setValueState('Error');
+                    this.setTooltip('this is to test error');
+                } else {
+                    // Clear any error state
+                    // dropdownBox.setValueState(sap.ui.core.ValueState.None);
+                    // dropdownBox.setValueStateText("");
+                }
+            }
+        });
+        oSCubeTab.addContent(dropdownBox);
+
+        var cardinalityLabel = new sap.ui.commons.Label({
+            width: '100%',
+            textAlign: 'End',
+            icon: 'sap-icon://hint',
+            tooltip: 'Use n:m cardinality with caution; it is recommended to update the cardinality\ntest',
+            text: 'Cardinality :'
+        }).addStyleClass('labelFloat').addStyleClass('iconColorClass');
+        cardinalityLabel.addStyleClass('infoIcon');
+
+        oSCubeTab.addContent(cardinalityLabel);
+        oPropertiesTabContainer.addItem(oSeparatorForSCube);
+        oPropertiesTabContainer.addItem(oSCubeTab);
+        vLayout.addContent(oPropertiesTabContainer);
+        vLayout.placeAt("uiArea");
+    </script>
+</head>
+
+<body class="sapUiBody" role="application" id="uiArea">
+</body>
+
+</html>

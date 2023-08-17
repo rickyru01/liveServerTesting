@@ -1,6 +1,4 @@
-
-var copy = [];
-
+/*
 for (var i = 0; i < 6; i++) {
     copy.push(i);
     setTimeout(function () {
@@ -17,3 +15,18 @@ for (var i = 0; i < 6; i++) {
     console.log('main thread');
 };
 
+*/
+
+var testPromieseWithSetTimeout = function(){
+    for (var i = 0; i<50; i++){
+        var p1 = new Promise(function(res, rej){
+            res('done');
+        });
+        p1.then(function(msg){
+            console.log(msg);
+        });
+    }
+    setTimeout(function(){console.log('this is time out')},0);
+}
+
+testPromieseWithSetTimeout();
